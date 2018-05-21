@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Task Details</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-header>
+            <div *ngIf="!isEditing">{{ task.name }} <span><button small clear ion-button (click)="enterEdit()"><ion-icon name="list"></ion-icon></button></span></div>
+            <ion-item *ngIf="isEditing">
+                <ion-label floating>Task Name</ion-label>
+                <ion-input type="text" value="{{ task.name }}" style="width: 100%;" [(ngModel)]="task.name"></ion-input>
+            </ion-item>
+            
+        </ion-card-header>
+        <ion-card-content>
+            <h2>Details</h2>
+            <p *ngIf="!isEditing">{{ task.details }}</p>
+            <textarea id="taskDetails" #taskDetails cols="30" rows="10" *ngIf="isEditing" style="width: 100%;" value="{{task.details}}" [(ngModel)]="task.details"></textarea>
+            <ion-row *ngIf="!isEditing">
+                <!-- Complete -->
+                <ion-col>
+                    <button *ngIf="task.status != 1" block ion-button (click)="changeStatus('complete')">
+                        Complete
+                    </button>
+                    <button *ngIf="task.status == 1" block ion-button (click)="changeStatus('pending')">
+                        Incomplete
+                    </button>
+                </ion-col>
+                <!-- Overdue -->
+                <ion-col>
+                    <button block ion-button (click)="changeStatus('overdue')">
+                        Overdue
+                    </button>
+                </ion-col>
+                <!-- Delete -->
+                <ion-col>
+                    <button block ion-button (click)="changeStatus('cancelled')" *ngIf="task.status != -1">
+                        Cancelled
+                    </button>
+                    <button block ion-button (click)="deleteConfirm()" *ngIf="task.status == -1">
+                        Delete
+                    </button>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="isEditing">
+                <!-- Save -->
+                <ion-col>
+                    <button block ion-button (click)="saveTask()">
+                        Save
+                    </button>
+                </ion-col>
+                <!-- Cancel -->
+                <ion-col>
+                    <button block ion-button (click)="cancelEdit()">
+                        Cancel
+                    </button>
+                    
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

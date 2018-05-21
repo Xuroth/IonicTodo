@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Tasks</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-item>
+            <ion-label fixed>Filter</ion-label>
+            <ion-select (ionChange)="changeFilter()" [(ngModel)]="filter" name="filter">
+                <ion-option value="null" selected="true">All</ion-option>
+                <ion-option value="-1">Overdue</ion-option>
+                <ion-option value="0">Pending</ion-option>
+                <ion-option value="1">Complete</ion-option>
+                <ion-option value="2">Cancelled</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-list>
+            <button *ngFor="let task of tasks" ion-item (click)="viewTask(task)">
+                <div [ngSwitch]="true" item-start>
+                <ion-icon *ngSwitchCase="task.status == 0" name="heart-outline"></ion-icon>
+                <ion-icon *ngSwitchCase="task.status == 0 - 1" name="remove-circle"></ion-icon>
+                <ion-icon *ngSwitchCase="task.status == 1" name="heart"></ion-icon>
+            </div>
+            {{ task.name }}
+            <ion-icon item-right name="arrow-forward"></ion-icon>
+            </button>
+        </ion-list>
+        <button ion-button block (click)="newTask()">New Task</button>
+    </ion-card>
+    <!-- <ion-list>
+        <ion-item *ngFor="let task of tasks">
+            <div [ngSwitch]="true" item-left>
+                <ion-icon *ngSwitchCase="task.status == 0" name="heart-outline"></ion-icon>
+                <ion-icon *ngSwitchCase="task.status == 0 - 1" name="remove-circle"></ion-icon>
+                <ion-icon *ngSwitchCase="task.status == 1" name="heart"></ion-icon>
+            </div>
+            <h2>{{ task.name }}</h2>
+            <button ion-button clear item-right (click)="viewTask(task)">View</button>
+        </ion-item>
+    </ion-list>
+    <button block (click)="newTask()">New Task</button> -->
+</ion-content>

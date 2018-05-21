@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>New Task: {{task.name}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-header>
+            <ion-item>
+                <ion-label floating>Task Name</ion-label>
+                <ion-input style="width:100%;" [(ngModel)]="task.name"></ion-input>
+            </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+            <textarea cols="30" rows="10" style="width: 100%;" [(ngModel)]="task.details"></textarea>
+        </ion-card-content>
+        <button ion-button block (click)="saveTask(task)">Save</button>
+    </ion-card>
+</ion-content>
